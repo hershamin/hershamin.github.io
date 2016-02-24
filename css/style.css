@@ -56,12 +56,15 @@ a:hover { color: #fff; -webkit-transition:all 0.2s ease-in-out; }
 
 ul { display: block; }
 ul li { display: inline-block; margin: 0 10px; }
-ul li a { opacity: 0.5; }
-ul li a:hover { opacity: 1; -webkit-transition:all 0.2s ease-in-out; }
-ul li.twitter a { width: 33px; height: 33px; display: block; background: transparent url('../img/social/twitter.png') top center no-repeat; text-indent: -9999px; }
-ul li.facebook a { width: 33px; height: 33px; display: block; background: transparent url('../img/social/facebook.png') top center no-repeat; text-indent: -9999px; }
-ul li.linkedin a { width: 33px; height: 33px; display: block; background: transparent url('../img/social/linkedin.png') top center no-repeat; text-indent: -9999px; }
-ul li.email a { width: 33px; height: 33px; display: block; background: transparent url('../img/mail.png') top center no-repeat; text-indent: -9999px; }
+ul li a { opacity: 1; }
+ul li.twitter a { width: 48px; height: 33px; display: block; text-indent: 9999px;
+background: url('../img/social/twitter.png'); background-size: 43px; background-repeat: no-repeat; background-position: 5px 0;}
+ul li.github a { width: 33px; height: 33px; display: block; text-indent: 9999px;
+background: url('../img/social/github.png'); background-size: 33px 33px; }
+ul li.linkedin a { width: 33px; height: 33px; display: block; text-indent: 9999px;
+background: url('../img/social/linkedin.png'); background-size: 43px 43px; background-position: -5px -5px; }
+ul li.email a { width: 33px; height: 33px; display: block; text-indent: -9999px;
+background: url('../img/social/email.png'); background-size: 33px 33px; }
 
 
 .content { max-width: 480px; padding: 0 20px; display: block; margin: 10% auto 5%; border: 1px solid #fff; -webkit-border-radius: 20px; -moz-border-radius: 20px; border-radius: 20px; background-color:rgba(161,161,161,0.3); 
