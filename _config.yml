@@ -4,13 +4,13 @@ gems:
     
 title: Hersh Amin
 description: Aerospace Engineer, Software Engineer, Aviator, Entrepreneur
-url: http://hershamin.me/
+url: http://hershamin.me
 author: Hersh Amin
-logo: img/avatar.png
+logo: /img/avatar.png
 
 image:
-    facebook: img/avatar.png
-    twitter: img/avatar.png
+    facebook: /img/avatar.png
+    twitter: /img/avatar.png
     height: 200
     width: 200
 
