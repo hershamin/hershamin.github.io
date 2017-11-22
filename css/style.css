@@ -67,6 +67,8 @@ ul li.email a { width: 33px; height: 33px; display: block; text-indent: 9999px;
 background: url('../img/social/email.png'); background-size: 33px 33px; }
 ul li.medium a { width: 48px; height: 33px; display: block; text-indent: 9999px;
 background: url('../img/social/medium.png'); background-size: 43px 33px; background-repeat: no-repeat; }
+ul li.books a { width: 48px; height: 38px; display: block; text-indent: 9999px;
+background: url('../img/book.png'); background-size: 43px 43px; background-repeat: no-repeat; }
 
 
 .content { max-width: 480px; padding: 0 20px; display: block; margin: 10% auto 5%; border: 1px solid #fff; -webkit-border-radius: 20px; -moz-border-radius: 20px; border-radius: 20px; background-color:rgba(161,161,161,0.3); 
