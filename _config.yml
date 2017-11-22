@@ -8,7 +8,7 @@ url: http://hershamin.me
 author: Hersh Amin
 logo: /img/avatar.png
 
-image: /img/avatar.png
+image:
     facebook: /img/avatar.png
     twitter: /img/avatar.png
     height: 200
