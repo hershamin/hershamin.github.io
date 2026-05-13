@@ -11,7 +11,7 @@ permalink: /
     {% seo %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400&family=Spline+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Spline+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
             --ink:       #0b0f17;
@@ -19,12 +19,10 @@ permalink: /
             --paper:     #ece4d4;
             --paper-dim: #9a958a;
             --brass:     #c9a45c;
-            --brass-dim: #8a7440;
             --line:      rgba(201, 164, 92, 0.22);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         html, body { height: 100%; }
 
         body {
@@ -35,206 +33,140 @@ permalink: /
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 6vh 24px;
+            padding: 5vh 6vw;
             position: relative;
             overflow-x: hidden;
         }
 
-        /* Atmospheric background: layered radial glows + faint chart grid + grain */
+        /* Atmosphere: radial glows + chart grid + grain */
         body::before {
             content: "";
-            position: fixed;
-            inset: 0;
+            position: fixed; inset: 0; z-index: -3;
             background:
-                radial-gradient(900px 600px at 78% 12%, rgba(201,164,92,0.10), transparent 60%),
-                radial-gradient(700px 700px at 12% 92%, rgba(70,98,130,0.16), transparent 60%),
+                radial-gradient(1000px 700px at 80% 8%, rgba(201,164,92,0.11), transparent 60%),
+                radial-gradient(800px 800px at 8% 95%, rgba(70,98,130,0.17), transparent 60%),
                 linear-gradient(180deg, var(--ink-2), var(--ink) 55%, #080b11);
-            z-index: -3;
         }
         body::after {
             content: "";
-            position: fixed;
-            inset: 0;
+            position: fixed; inset: 0; z-index: -2;
             background-image:
                 linear-gradient(rgba(201,164,92,0.05) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(201,164,92,0.05) 1px, transparent 1px);
-            background-size: 64px 64px;
-            -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, #000, transparent 75%);
-                    mask-image: radial-gradient(ellipse 70% 70% at 50% 40%, #000, transparent 75%);
-            z-index: -2;
+            background-size: 72px 72px;
+            -webkit-mask-image: radial-gradient(ellipse 75% 75% at 50% 45%, #000, transparent 78%);
+                    mask-image: radial-gradient(ellipse 75% 75% at 50% 45%, #000, transparent 78%);
         }
-
         .grain {
-            position: fixed;
-            inset: -50%;
-            z-index: -1;
-            opacity: 0.5;
-            pointer-events: none;
+            position: fixed; inset: -50%; z-index: -1;
+            opacity: 0.5; pointer-events: none; mix-blend-mode: overlay;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
-            mix-blend-mode: overlay;
         }
 
-        /* ---- Card ---- */
-        .card {
-            position: relative;
-            width: 100%;
-            max-width: 560px;
-            padding: 56px 52px 44px;
-            text-align: center;
-            background: linear-gradient(165deg, rgba(28,34,46,0.72), rgba(13,17,24,0.66));
-            border: 1px solid var(--line);
-            border-radius: 4px;
-            box-shadow:
-                0 1px 0 rgba(255,255,255,0.04) inset,
-                0 40px 90px -30px rgba(0,0,0,0.7);
-            backdrop-filter: blur(10px) saturate(120%);
-            -webkit-backdrop-filter: blur(10px) saturate(120%);
-        }
-        /* hairline corner ticks — instrument-panel detail */
-        .card::before, .card::after {
-            content: "";
-            position: absolute;
-            width: 14px; height: 14px;
-            border: 1px solid var(--brass);
-            opacity: 0.55;
-        }
-        .card::before { top: 10px; left: 10px; border-right: 0; border-bottom: 0; }
-        .card::after  { bottom: 10px; right: 10px; border-left: 0; border-top: 0; }
+        /* corner registration ticks on the viewport — instrument-panel cue */
+        .frame { position: fixed; inset: 18px; pointer-events: none; z-index: 0; }
+        .frame i { position: absolute; width: 16px; height: 16px; border: 1px solid var(--brass); opacity: 0.4; }
+        .frame i:nth-child(1) { top: 0; left: 0; border-right: 0; border-bottom: 0; }
+        .frame i:nth-child(2) { top: 0; right: 0; border-left: 0; border-bottom: 0; }
+        .frame i:nth-child(3) { bottom: 0; left: 0; border-right: 0; border-top: 0; }
+        .frame i:nth-child(4) { bottom: 0; right: 0; border-left: 0; border-top: 0; }
 
-        .reveal { opacity: 0; transform: translateY(14px); animation: rise 0.9s cubic-bezier(.2,.7,.2,1) forwards; }
+        main { position: relative; z-index: 1; width: 100%; max-width: 880px; text-align: center; }
+
+        .reveal { opacity: 0; transform: translateY(16px); animation: rise 1s cubic-bezier(.2,.7,.2,1) forwards; }
         @keyframes rise { to { opacity: 1; transform: none; } }
 
-        /* ---- Portrait ---- */
         .portrait {
-            position: relative;
-            width: 132px; height: 132px;
-            margin: 0 auto 26px;
+            width: 84px; height: 84px; margin: 0 auto 30px; position: relative;
         }
         .portrait img {
-            width: 100%; height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            filter: grayscale(18%) contrast(1.04);
+            width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+            filter: grayscale(20%) contrast(1.05);
         }
-        .portrait .ring {
-            position: absolute; inset: -11px;
-            border-radius: 50%;
-            border: 1px solid var(--brass);
-            opacity: 0.5;
-        }
-        .portrait .ring::after {
-            content: ""; position: absolute; inset: -7px;
-            border-radius: 50%;
-            border: 1px solid var(--line);
+        .portrait::after {
+            content: ""; position: absolute; inset: -8px; border-radius: 50%;
+            border: 1px solid var(--brass); opacity: 0.45;
         }
 
-        /* ---- Identity ---- */
+        /* The hero name */
         .name {
             font-family: "Fraunces", Georgia, serif;
             font-optical-sizing: auto;
-            font-weight: 400;
-            font-size: clamp(2.3rem, 6vw, 3rem);
-            letter-spacing: 0.01em;
-            line-height: 1.05;
-            color: #f4ecdb;
+            font-weight: 300;
+            font-size: clamp(3.4rem, 15vw, 9.5rem);
+            line-height: 0.92;
+            letter-spacing: -0.01em;
+            color: #f5edda;
         }
-        .name em { font-style: italic; color: var(--brass); }
+        .name .a { display: block; font-style: italic; font-weight: 400; color: var(--brass); }
+        .name .a::before { content: "—"; color: var(--paper-dim); font-style: normal; margin-right: 0.35em; font-weight: 300; }
 
-        .coords {
-            margin-top: 14px;
+        .rule { width: 56px; height: 1px; margin: 30px auto; background: linear-gradient(90deg, transparent, var(--brass), transparent); }
+
+        .roles {
             font-family: "JetBrains Mono", monospace;
-            font-size: 0.72rem;
-            letter-spacing: 0.28em;
+            font-size: clamp(0.62rem, 1.6vw, 0.8rem);
+            letter-spacing: 0.34em;
             text-transform: uppercase;
             color: var(--paper-dim);
         }
-        .coords .dot { color: var(--brass); margin: 0 0.5em; }
+        .roles b { color: var(--paper); font-weight: 500; }
+        .roles .sep { color: var(--brass); margin: 0 0.7em; }
 
-        .rule {
-            width: 46px; height: 1px;
-            margin: 26px auto 0;
-            background: linear-gradient(90deg, transparent, var(--brass), transparent);
+        .tagline {
+            margin: 22px auto 0; max-width: 600px;
+            font-weight: 300; font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+            line-height: 1.7; color: #cfc7b7; text-wrap: balance;
         }
+        .tagline em { font-family: "Fraunces", Georgia, serif; font-style: italic; font-weight: 400; color: var(--brass); }
 
-        /* ---- Intro ---- */
-        .intro {
-            margin-top: 26px;
-            font-weight: 300;
-            font-size: 1.02rem;
-            line-height: 1.72;
-            color: #d8d0c0;
-            text-wrap: balance;
-        }
-        .intro .hl {
-            font-family: "Fraunces", Georgia, serif;
-            font-style: italic;
-            font-weight: 400;
-            color: var(--brass);
-        }
-
-        /* ---- Social ---- */
-        .links {
-            margin-top: 34px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 12px;
-        }
+        .links { margin-top: 38px; display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
         .links a {
-            width: 44px; height: 44px;
-            display: grid; place-items: center;
-            border: 1px solid var(--line);
-            border-radius: 50%;
-            color: var(--paper-dim);
-            transition: color .25s ease, border-color .25s ease, background-color .25s ease, transform .25s ease;
+            width: 46px; height: 46px; display: grid; place-items: center;
+            border: 1px solid var(--line); border-radius: 50%; color: var(--paper-dim);
+            transition: color .25s, border-color .25s, background-color .25s, transform .25s;
         }
         .links a svg { width: 18px; height: 18px; fill: currentColor; }
-        .links a:hover {
-            color: var(--ink);
-            background: var(--brass);
-            border-color: var(--brass);
-            transform: translateY(-3px);
-        }
+        .links a:hover { color: var(--ink); background: var(--brass); border-color: var(--brass); transform: translateY(-3px); }
 
-        .foot {
-            margin-top: 30px;
-            font-family: "JetBrains Mono", monospace;
-            font-size: 0.62rem;
-            letter-spacing: 0.24em;
-            text-transform: uppercase;
-            color: rgba(154,149,138,0.5);
+        .coords {
+            position: fixed; bottom: 30px; left: 0; right: 0; text-align: center; z-index: 1;
+            font-family: "JetBrains Mono", monospace; font-size: 0.6rem;
+            letter-spacing: 0.26em; text-transform: uppercase; color: rgba(154,149,138,0.55);
         }
+        .coords .dot { color: var(--brass); margin: 0 0.6em; }
 
-        @media (max-width: 540px) {
-            .card { padding: 44px 22px 34px; }
-            .coords { letter-spacing: 0.16em; font-size: 0.66rem; }
-            .foot { letter-spacing: 0.14em; }
-            .links { gap: 10px; }
-        }
-        @media (max-width: 360px) {
-            .card { padding: 38px 16px 30px; }
-            .coords .dot { margin: 0 0.3em; }
+        @media (max-width: 600px) {
+            .frame { inset: 12px; }
+            .roles { letter-spacing: 0.2em; }
+            .coords { position: static; margin-top: 28px; letter-spacing: 0.14em; padding: 0 12px; }
+            body { flex-direction: column; padding-bottom: 8vh; }
+            .coords .dot { margin: 0 0.35em; }
         }
     </style>
 </head>
 <body>
     <div class="grain" aria-hidden="true"></div>
+    <div class="frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 
-    <main class="card">
+    <main>
         <div class="portrait reveal" style="animation-delay:.05s">
-            <span class="ring" aria-hidden="true"></span>
             <img src="/img/avatar.png" alt="Hersh Amin">
         </div>
 
-        <h1 class="name reveal" style="animation-delay:.18s">Hersh <em>Amin</em></h1>
-        <p class="coords reveal" style="animation-delay:.28s">30.27&deg;N <span class="dot">&bull;</span> 97.74&deg;W <span class="dot">&bull;</span> Austin, Texas</p>
+        <h1 class="name reveal" style="animation-delay:.15s">Hersh<span class="a">Amin</span></h1>
+
         <div class="rule reveal" style="animation-delay:.34s"></div>
 
-        <p class="intro reveal" style="animation-delay:.42s">
-            <span class="hl">Aerospace</span> engineer, <span class="hl">software</span> engineer, and <span class="hl">entrepreneur</span> &mdash; building unmanned aircraft, software, and startups. Driven by a belief in <span class="hl">people</span>, <span class="hl">hard work</span>, <span class="hl">curiosity</span>, and <span class="hl">passion</span> for anything that makes this world a better place.
+        <p class="roles reveal" style="animation-delay:.4s">
+            <b>Aerospace</b><span class="sep">/</span><b>Software</b><span class="sep">/</span><b>Entrepreneur</b>
         </p>
 
-        <nav class="links reveal" style="animation-delay:.56s" aria-label="Social links">
+        <p class="tagline reveal" style="animation-delay:.5s">
+            Building unmanned aircraft, software, and startups &mdash; for anything that makes this world a better place. A believer in <em>people</em>, <em>hard work</em>, <em>curiosity</em>, and <em>passion</em>.
+        </p>
+
+        <nav class="links reveal" style="animation-delay:.62s" aria-label="Social links">
             <a href="https://twitter.com/hersh_amin" target="_blank" rel="noopener" title="Twitter / X" aria-label="Twitter">
                 <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
             </a>
@@ -257,8 +189,8 @@ permalink: /
                 <svg viewBox="0 0 24 24"><path d="M22 16.5v-2l-8.5-5V3.75a1.75 1.75 0 1 0-3.5 0V9.5L1.5 14.5v2l8.5-2.5v4.25L7.5 20v1.5L12 20.5l4.5 1V20l-2.5-1.75V14z"/></svg>
             </a>
         </nav>
-
-        <p class="foot reveal" style="animation-delay:.7s">Lat. 30.27 &nbsp;/&nbsp; Long. -97.74 &nbsp;/&nbsp; Heading &mdash; Onward</p>
     </main>
+
+    <p class="coords reveal" style="animation-delay:.8s">30.27&deg;N <span class="dot">&bull;</span> 97.74&deg;W <span class="dot">&bull;</span> Austin, Texas</p>
 </body>
 </html>
